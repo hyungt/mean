@@ -1,0 +1,23 @@
+<% include header %>
+
+    <h2>방명록 작성하기</h2>
+    
+    <form method="post" action="">
+        <div class="form-group">
+            <label>제목</label>
+            <input type="text" class="form-control" name="title"/>
+        </div>
+        <div class="form-group">
+            <label>작성자</label>
+            <input type="text" class="form-control" name="writer"/>
+        </div>
+        <div class="form-group">
+            <label>메세지</label>
+            <textarea rows="3" class="form-control" name="messages"></textarea>
+        </div>
+        <div class="form-group text-right">
+            <button type="submit" class="btn btn-primary">등록</button>
+        </div>
+    </form>
+
+<% include footer %>

@@ -1,0 +1,28 @@
+<% include ../common/header %>
+
+    <h1>내 일정<a href="register.do" class="btn btn-primary pull-right">새 일정</a></h1>
+    
+    
+    <% if(todos.length) {%>
+        <% todos.forEach(function(todo, index) {%>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="btn-group pull-right">
+                        <a href="complete.do?id=<%=todo._id%>" class="btn btn-success btn-md pull-right">완료</a>
+                    </div>
+                    <h4><%=todo.title%></h4>
+                </div>
+                <div class="panel-body">
+                    <p><small class="pull-right"><%=todo.dates%></small></p>
+                    <p><%=todo.desc%></p>
+                </div>
+            </div>
+        <%});%>
+    <%} else {%>
+        <div class="panel panel-default panel-body">
+            예정된 일정이 없습니다.
+        </div>
+    <%}%>
+    
+
+<% include ../common/footer %>

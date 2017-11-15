@@ -1,0 +1,26 @@
+<% include header %>
+    <h2>방명록 목록</h2>
+    
+    <% if(guestbooks.length){ %>
+        <%guestbooks.forEach(function(item, index){%>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="pull-right">
+                        <%=item.writer%> 
+                        <small><%=item.published.toLocaleDateString()%></small>
+                        <a href="del.do?no=<%=index%>" class="btn btn-danger btn-xs">삭제</a>
+                    </div>
+                    <%=item.title%>
+                </div>
+                <div class="panel-body">
+                    <%=item.messages%>
+                </div>
+            </div>
+        <%})%>
+    <%} else {%>
+        <p>등록된 방명록이 없습니다.</p>
+    <%}%>
+    
+    
+
+<% include footer%>

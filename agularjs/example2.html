@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <title>Document</title>
+    <script>
+        //myapp라는 이름의 모듈을 생성한다.
+        //angularjs 모듈은 사용자 정의 컴포넌트(서비스, 컨트롤러, 필터, 디렉티브)를 담는 그릇이다
+        //
+        var app = angular.module('myapp', []);
+        
+        app.controller('myController', function($scope) {
+            $scope.greeting = "안녕하세요";
+            $scope.a = function(){
+                $scope.greeting = "안녕히 가세요";
+            }
+        });
+        
+        app.controller('yourController', function($scope) {
+            $scope.greeting = "반갑습니다.";
+            
+            $scope.names = [];
+            
+            $scope.addName = function(n){
+                $scope.names.push(angular.copy(n));
+                $scope.name = "";
+            }
+        });
+    </script>
+</head>
+<body ng-app="myapp">
+    <div ng-controller="myController">
+        <p>{{greeting}}</p>
+        <p><button ng-click="a()">클릭</button></p>
+    </div>
+    <div ng-controller="yourController">
+        <p>{{greeting}}</p>
+        <p>
+            <input type="text" ng-model="name"/>
+            <button ng-click="addName(name)">추가</button>
+        </p>
+        <ul>
+            <li ng-repeat="x in names track by $index">{{x}}</li>
+        </ul>
+    </div>
+</body>
+</html>

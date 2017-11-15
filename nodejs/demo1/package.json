@@ -1,0 +1,15 @@
+{
+  "name": "demo1",
+  "version": "1.0.0",
+  "description": "my sample project",
+  "main": "sample1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "hyungteak",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "upper-case": "^1.1.3"
+  }
+}
