@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script>
+        angular.module('myApp', [])
+        .controller('productCtrl', function($scope) {
+            $scope.products = [
+                {no:100, name:"노트북", maker:"삼성", price:1200000, productDate:new Date()},
+                {no:110, name:"맥북", maker:"애플", price:1600000, productDate:new Date()},
+                {no:120, name:"맥북프로", maker:"애플", price:2200000, productDate:new Date()},
+                {no:130, name:"그램", maker:"LG", price:900000, productDate:new Date()},
+                {no:140, name:"PS4", maker:"소니", price:500000, productDate:new Date()},
+                {no:150, name:"닌텐도", maker:"닌텐도", price:400000, productDate:new Date()},
+                {no:160, name:"엑스박스", maker:"MS", price:420000, productDate:new Date()}
+            ];
+            
+            $scope.sortType = "name";
+            
+        });
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="productCtrl">
+    <div class="container">
+        <h1>제품리스트</h1>
+        <div>
+            <select ng-model="sortType">
+                <option value="name">이름순</option>
+                <option value="maker">제조사순</option>
+                <option value="price">가격순</option>
+            </select>
+        </div>
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제품명</th>
+                    <th>제조사</th>
+                    <th>가격</th>
+                    <th>발매일</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="product in products | orderBy:sortType">
+                    <td>{{product.no}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.maker}}</td>
+                    <td>{{product.price | number}}</td>
+                    <td>{{product.productDate | date:'yyyy-MM-dd'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

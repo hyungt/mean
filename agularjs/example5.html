@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <title>Document</title>
+    <script>
+        angular.module('myApp', [])
+        .filter("idHidden", function(){
+            return function(item) {
+                if(angular.isString(item)) {
+                    var id = item.substr(0, 3);
+                    for(var i = 3; i < item.length; ++i) {
+                        id += "*";
+                    }
+                    return id;
+                } else {
+                    return item;
+                }
+            }
+        })
+        .filter('passwordHidden', function() {
+            return function(item, attr) {
+                if(attr) {
+                    if(angular.isNumber(attr)) {
+                        
+                        var id = item.substr(0, attr);
+                        for(var i = attr; i < item.length; ++i) {
+                            id += "*";
+                        }
+                        return id;
+                    } else {
+                        return "********"
+                    }
+                } else {
+                    return "********"
+                }
+            }
+        })
+        .filter("gradeFilter", function() {
+            return function(items, attr) {
+                if(angular.isArray(items)) {
+                    if(attr == 'ALL') {
+                        return items;
+                    }
+                    
+                    var filtered = [];
+                    
+                    items.forEach(function(item, index) {
+                        if(item.grade == attr) {
+                            filtered.push(item);
+                        }
+                    });
+                    return filtered;
+                } else {
+                    return items;
+                }
+            }
+        })
+        .controller('userCtrl', function($scope) {
+            $scope.userList = [
+                {id:'hong', name:"홍길동", password:"zxcv1234", grade:"GOLD", point:580},
+                {id:'gamchan', name:"강감찬", password:"1234ftys", grade:"SILVER", point:100},
+                {id:'yousin', name:"김유신", password:"guwncimg", grade:"SILVER", point:250},
+                {id:'sunshin', name:"이순신", password:"21l4kj35r34h", grade:"BRONZE", point:10},
+                {id:'kwansoon', name:"류관순", password:"zkoqjrelkjw", grade:"SILVER", point:270},
+                {id:'kimgoo', name:"김구", password:"alkfjewj", grade:"GOLD", point:900},
+                {id:'joongkeun', name:"안중근", password:"rkn3149ui", grade:"GOLD", point:700},
+                {id:'jowajin', name:"김좌진", password:"045830948", grade:"SILVER", point:300},
+                {id:'bumdo', name:"홍범도", password:"dfa;lfdfgklh", grade:"BRONZE", point:80},
+                {id:'bongchang', name:"이봉창", password:"dfjklhjkhe", grade:"SILVER", point:170},
+                {id:'dongjoo', name:"윤동주", password:"opqewjma", grade:"GOLD", point:890},
+                {id:'yooksa', name:"이육사", password:"weqrkldfsnk", grade:"BRONZE", point:20}
+            ];
+            
+            $scope.selectGrade = 'ALL'
+        });
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="userCtrl">
+    <div class="container">
+        <h1>사용자 리스트</h1>
+        
+        <div>
+            <select ng-model="selectGrade">
+                <option value="ALL"> 전체 선택 </option>
+                <option value="GOLD"> 골드 회원 </option>
+                <option value="SILVER"> 실버 회원 </option>
+                <option value="BRONZE"> 브론즈회원 </option>
+            </select>
+        </div>
+        
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>아이디</th>
+                    <th>이름</th>
+                    <th>비밀번호</th>
+                    <th>등급</th>
+                    <th>포인트</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in userList | gradeFilter:selectGrade">
+                    <td>{{user.id | idHidden}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.password | passwordHidden:5}}</td>
+                    <td>{{user.grade}}</td>
+                    <td>{{user.point}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
